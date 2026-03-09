@@ -32,6 +32,12 @@ local C = GRP.C
 
 local PGFDialog = CreateFrame("Frame", "GroupinatorDialog", PVEFrame, "GroupinatorDialogTemplate")
 
+local function ApplyThemeBackdrop(frame)
+    frame:SetBackdrop(C.THEME_BACKDROP)
+    frame:SetBackdropColor(C.THEME_BG.R, C.THEME_BG.G, C.THEME_BG.B, C.THEME_BG.A)
+    frame:SetBackdropBorderColor(C.THEME_BORDER.R, C.THEME_BORDER.G, C.THEME_BORDER.B, C.THEME_BORDER.A)
+end
+
 function PGFDialog:OnLoad()
     GRP.Logger:Debug("PGFDialog:OnLoad")
     self.minimizedHeight = 220
@@ -40,41 +46,45 @@ function PGFDialog:OnLoad()
     self.activeId = nil
     self.activeState = nil
     self.activePanel = nil
+    self.isMinimized = false
 
     self:SetScript("OnShow", self.OnShow)
     self:SetScript("OnHide", self.OnHide)
     self:SetScript("OnMouseDown", self.OnMouseDown)
     self:SetScript("OnMouseUp", self.OnMouseUp)
 
-    self:SetTitle(L["addon.name.long"])
-    if GRP.SupportsDragonflightUI() then
-        self:SetBorder("ButtonFrameTemplateNoPortraitMinimizable")
-        self:SetPortraitShown(false)
-        self.MaximizeMinimizeFrame:SetOnMaximizedCallback(function () self:OnMaximize() end)
-        self.MaximizeMinimizeFrame:SetOnMinimizedCallback(function () self:OnMinimize() end)
-    end
+    ApplyThemeBackdrop(self)
+    self.TitleText:SetText(L["addon.name.long"])
+
+    self.MinimizeButton:SetScript("OnClick", function ()
+        if self.isMinimized then
+            self:OnMaximize()
+        else
+            self:OnMinimize()
+        end
+    end)
 
     self.ResetButton:SetScript("OnClick", function () self:OnResetButtonClick() end)
-    self.ResetButton:SetScript("OnEnter", function (self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    self.ResetButton:SetScript("OnEnter", function (btn)
+        GameTooltip:SetOwner(btn, "ANCHOR_RIGHT")
         GameTooltip:SetText(L["dialog.reset"], nil, nil, nil, nil, true)
         GameTooltip:Show()
     end)
-    self.ResetButton:SetScript("OnLeave", function(self)
+    self.ResetButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end)
 
     self.SettingsButton:SetScript("OnClick", function () GRP.OpenSettings() end)
-    self.SettingsButton:SetScript("OnEnter", function (self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    self.SettingsButton:SetScript("OnEnter", function (btn)
+        GameTooltip:SetOwner(btn, "ANCHOR_RIGHT")
         GameTooltip:SetText(L["dialog.settings"], nil, nil, nil, nil, true)
         GameTooltip:Show()
     end)
-    self.SettingsButton:SetScript("OnLeave", function(self)
+    self.SettingsButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end)
 
-    self.RefreshButton:SetText(L["dialog.refresh"])
+    self.RefreshButton.Text:SetText(L["dialog.refresh"])
     self.RefreshButton:SetScript("OnClick", function () self:OnRefreshButtonClick() end)
 end
 
@@ -110,26 +120,34 @@ end
 
 function PGFDialog:OnMaximize()
     GRP.Logger:Debug("PGFDialog:OnMaximize")
-    self.activeState.minimized = false
+    self.isMinimized = false
+    if self.activeState then
+        self.activeState.minimized = false
+    end
     self:SetHeight(self.maximizedHeight)
+    self.MinimizeButton.Label:SetText("_")
     self:SwitchToPanel()
 end
 
 function PGFDialog:OnMinimize()
     GRP.Logger:Debug("PGFDialog:OnMinimize")
-    self.activeState.minimized = true
+    self.isMinimized = true
+    if self.activeState then
+        self.activeState.minimized = true
+    end
     self:SetHeight(self.minimizedHeight)
+    self.MinimizeButton.Label:SetText("+")
     self:SwitchToPanel()
 end
 
 function PGFDialog:MaximizeMinimize()
     if self.activeState.minimized then
-        self.MaximizeMinimizeFrame.isMinimized = true
-        self.MaximizeMinimizeFrame:SetMaximizedLook() -- button should show maximize icon
+        self.isMinimized = true
+        self.MinimizeButton.Label:SetText("+")
         self:SetHeight(self.minimizedHeight)
     else
-        self.MaximizeMinimizeFrame.isMinimized = false
-        self.MaximizeMinimizeFrame:SetMinimizedLook() -- button should show minimize icon
+        self.isMinimized = false
+        self.MinimizeButton.Label:SetText("_")
         self:SetHeight(self.maximizedHeight)
     end
 end
@@ -176,42 +194,36 @@ function PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
     local id = "c"..categoryID.."f"..allFilters
     self.activeId = id
     self.activeState = self:GetState(id)
-    if GRP.SupportsDragonflightUI() then
-        self:MaximizeMinimize()
-    end
+    self:MaximizeMinimize()
     self:SwitchToPanel()
 end
 
 function PGFDialog:SwitchToPanel()
     local panel = self.activeState.minimized
-            and self.panels.mini          -- if minimized, use mini panel
-            or self.panels[self.activeId] -- if maximized, use panel for current category
-            or self.panels.role           -- if no panel for current category, use role panel
+            and self.panels.mini
+            or self.panels[self.activeId]
+            or self.panels.role
     GRP.Logger:Debug("PGFDialog:SwitchToPanel("..panel.name..")")
-    self.activeState[panel.name] = self.activeState[panel.name] or {} -- initialize panel state
+    self.activeState[panel.name] = self.activeState[panel.name] or {}
     if self.activePanel then self.activePanel:Hide() end
     self.activePanel = panel
     self.activePanel:Init(self.activeState[panel.name])
     if self.activePanel.GetDesiredDialogWidth then
         local desiredWidth = self.activePanel:GetDesiredDialogWidth()
         self:SetWidth(desiredWidth)
-    elseif GRP.SupportsDragonflightUI() then
-        self:SetWidth(300)
     else
-        self:SetWidth(310)
+        self:SetWidth(300)
     end
-    if not GRP.SupportsDragonflightUI() then
-        self.activePanel:ClearAllPoints()
-        self.activePanel:SetPoint("TOPLEFT", 5, -20)
-        self.activePanel:SetPoint("BOTTOMRIGHT", 0, 35)
-    end
+    self.activePanel:ClearAllPoints()
+    self.activePanel:SetPoint("TOPLEFT", 5, -30)
+    self.activePanel:SetPoint("BOTTOMRIGHT", -2, 30)
     self.activePanel:Show()
 end
 
 function PGFDialog:GetState(id)
     if GroupinatorState[id] == nil then
         GroupinatorState[id] = {}
-        if self.panels[id] then -- if there is a special panel registered for this id, enable it on first run
+        if self.panels[id] then
             GroupinatorState[id].enabled = true
         end
     end
@@ -250,11 +262,7 @@ end
 function PGFDialog:ResetPosition()
     GRP.Logger:Debug("PGFDialog:ResetPosition")
     self:ClearAllPoints()
-    if GRP.SupportsDragonflightUI() then
-        self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT")
-    else
-        self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", -5, 0)
-    end
+    self:SetPoint("TOPLEFT", PVEFrame, "TOPRIGHT", 0, 0)
 end
 
 function PGFDialog:RegisterPanel(id, panel)
@@ -262,13 +270,14 @@ function PGFDialog:RegisterPanel(id, panel)
     self.panels[id] = panel
 end
 
+GRP.ApplyThemeBackdrop = ApplyThemeBackdrop
+
 local pvpButtonsHooked = false
 hooksecurefunc("LFGListSearchPanel_SetCategory", function(self, categoryID, filters, baseFilters)
     PGFDialog:UpdateCategory(categoryID, filters, baseFilters)
 end)
 hooksecurefunc("LFGListFrame_SetActivePanel", function () PGFDialog:Toggle() end)
 hooksecurefunc("PVEFrame_ShowFrame", function (sidePanelName, selection)
-    -- PVPUIFrame is loaded dynamically and not available on startup
     if sidePanelName == "PVPUIFrame" and PVPQueueFrame_ShowFrame and not pvpButtonsHooked then
         hooksecurefunc("PVPQueueFrame_ShowFrame", function () PGFDialog:Toggle() end)
         pvpButtonsHooked = true

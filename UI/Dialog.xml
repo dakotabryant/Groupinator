@@ -2,45 +2,146 @@
 ..\FrameXML\UI.xsd">
 
     <Frame name="GroupinatorDialogTemplate" virtual="true"
-           inherits="PortraitFrameTemplateMinimizable"
+           inherits="BackdropTemplate"
            frameStrata="FULLSCREEN" movable="true" enableMouse="true" hidden="true">
         <Size x="300" y="427"/>
         <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" />
         </Anchors>
+        <Layers>
+            <Layer level="OVERLAY">
+                <FontString parentKey="TitleText" inherits="GameFontNormal" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="10" y="-8"/>
+                        <Anchor point="TOPRIGHT" x="-60" y="-8"/>
+                    </Anchors>
+                    <Color r="0.95" g="0.80" b="0.30"/>
+                </FontString>
+                <!-- thin separator below title -->
+                <Texture parentKey="TitleDivider">
+                    <Size y="1"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="1" y="-28"/>
+                        <Anchor point="TOPRIGHT" x="-1" y="-28"/>
+                    </Anchors>
+                    <Color r="0.30" g="0.30" b="0.35" a="0.60"/>
+                </Texture>
+            </Layer>
+        </Layers>
         <Frames>
-            <Frame parentKey="MaximizeMinimizeFrame" inherits="MaximizeMinimizeButtonFrameTemplate">
+            <Button parentKey="CloseButton">
+                <Size x="18" y="18"/>
                 <Anchors>
-                    <Anchor point="RIGHT" relativeKey="$parent.CloseButton" relativePoint="LEFT" x="-1" y="0"/>
+                    <Anchor point="TOPRIGHT" x="-6" y="-6"/>
                 </Anchors>
-            </Frame>
-            <Button parentKey="ResetButton" inherits="IconButtonTemplate">
-                <KeyValues>
-                    <KeyValue key="iconAtlas" value="talents-button-reset" type="string"/>
-                    <KeyValue key="useAtlasSize" value="true" type="boolean"/>
-                    <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
-                </KeyValues>
-                <Size x="25" y="25"/>
-                <Anchors>
-                    <Anchor point="BOTTOMLEFT" x="7" y="4"/>
-                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Label" inherits="GameFontNormal" text="X">
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                            <Color r="0.70" g="0.70" b="0.70"/>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <HighlightTexture setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.3" b="0.3" a="0.3"/>
+                </HighlightTexture>
+                <Scripts>
+                    <OnClick>self:GetParent():Hide()</OnClick>
+                    <OnEnter>self.Label:SetTextColor(1, 1, 1)</OnEnter>
+                    <OnLeave>self.Label:SetTextColor(0.70, 0.70, 0.70)</OnLeave>
+                </Scripts>
             </Button>
-            <Button parentKey="SettingsButton" inherits="IconButtonTemplate">
-                <KeyValues>
-                    <KeyValue key="icon" value="Interface\Icons\Pet_Type_Mechanical" type="string"/>
-                    <KeyValue key="iconSize" value="22" type="number"/>
-                    <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
-                </KeyValues>
-                <Size x="25" y="25"/>
+            <Button parentKey="MinimizeButton">
+                <Size x="18" y="18"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeKey="$parent.ResetButton" relativePoint="TOPRIGHT"/>
+                    <Anchor point="RIGHT" relativeKey="$parent.CloseButton" relativePoint="LEFT" x="-2"/>
                 </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Label" inherits="GameFontNormal" text="_">
+                            <Anchors>
+                                <Anchor point="CENTER" y="3"/>
+                            </Anchors>
+                            <Color r="0.70" g="0.70" b="0.70"/>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <HighlightTexture setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.82" b="0" a="0.20"/>
+                </HighlightTexture>
+                <Scripts>
+                    <OnEnter>self.Label:SetTextColor(1, 1, 1)</OnEnter>
+                    <OnLeave>self.Label:SetTextColor(0.70, 0.70, 0.70)</OnLeave>
+                </Scripts>
             </Button>
-            <Button parentKey="RefreshButton" inherits="MagicButtonTemplate">
+            <Button parentKey="ResetButton">
+                <Size x="18" y="18"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="7" y="6"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Icon" atlas="talents-button-reset" useAtlasSize="false">
+                            <Size x="14" y="14"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <HighlightTexture setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.82" b="0" a="0.20"/>
+                </HighlightTexture>
+            </Button>
+            <Button parentKey="SettingsButton">
+                <Size x="18" y="18"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeKey="$parent.ResetButton" relativePoint="RIGHT" x="4"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Icon" file="Interface\Icons\Pet_Type_Mechanical">
+                            <Size x="14" y="14"/>
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <HighlightTexture setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.82" b="0" a="0.20"/>
+                </HighlightTexture>
+            </Button>
+            <Button parentKey="RefreshButton">
                 <Size x="135" y="22"/>
                 <Anchors>
-                    <Anchor point="BOTTOMRIGHT" x="-5" y="4"/>
+                    <Anchor point="BOTTOMRIGHT" x="-7" y="5"/>
                 </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture setAllPoints="true">
+                            <Color r="0.12" g="0.12" b="0.15" a="0.90"/>
+                        </Texture>
+                    </Layer>
+                    <Layer level="ARTWORK">
+                        <FontString parentKey="Text" inherits="GameFontNormal" justifyH="CENTER">
+                            <Anchors>
+                                <Anchor point="CENTER"/>
+                            </Anchors>
+                            <Color r="0.95" g="0.80" b="0.30"/>
+                        </FontString>
+                    </Layer>
+                    <Layer level="BORDER">
+                        <Texture setAllPoints="true">
+                            <Color r="0.30" g="0.30" b="0.35" a="0.50"/>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <HighlightTexture setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.82" b="0" a="0.15"/>
+                </HighlightTexture>
             </Button>
         </Frames>
     </Frame>

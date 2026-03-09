@@ -37,7 +37,7 @@ function GroupinatorTextButtonMixin:Init(title, tooltip)
 end
 
 function GroupinatorTextButtonMixin:OnEnter()
-    self.Label:SetTextColor(WHITE_FONT_COLOR:GetRGB())
+    self.Label:SetTextColor(0.95, 0.80, 0.30)
     if self.tooltip then
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:SetText(self.tooltip, nil, nil, nil, nil, true)
@@ -46,7 +46,7 @@ function GroupinatorTextButtonMixin:OnEnter()
 end
 
 function GroupinatorTextButtonMixin:OnLeave()
-    self.Label:SetTextColor(NORMAL_FONT_COLOR:GetRGB())
+    self.Label:SetTextColor(0.90, 0.90, 0.90)
     self.Label:ClearAllPoints()
     self.Label:SetPoint("CENTER", 0, 0)
     GameTooltip:Hide()

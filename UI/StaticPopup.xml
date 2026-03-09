@@ -1,42 +1,28 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <Button name="GroupinatorStaticPopupButtonTemplate" virtual="true">
-        <Size x="128" y="21"/>
+    <Button name="GroupinatorStaticPopupButtonTemplate" virtual="true" inherits="BackdropTemplate">
+        <Size x="128" y="24"/>
         <Layers>
-            <Layer level="OVERLAY" textureSubLevel="1">
-                <Texture parentKey="Flash" file="Interface\Buttons\UI-Panel-Button-Glow" alphaMode="ADD" alpha="0">
-                    <Size x="140" y="40"/>
-                    <Anchors>
-                        <Anchor point="CENTER"/>
-                    </Anchors>
-                    <TexCoords left="0.0" right="0.75" top="0.0" bottom="0.609375"/>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0.12" g="0.12" b="0.15" a="0.90"/>
                 </Texture>
             </Layer>
         </Layers>
         <ButtonText name="$parentText" parentKey="Text">
             <Anchors>
-                <Anchor point="CENTER">
-                    <Offset x="0" y="1"/>
-                </Anchor>
+                <Anchor point="CENTER" y="1"/>
             </Anchors>
         </ButtonText>
-        <NormalTexture file="Interface\Buttons\UI-DialogBox-Button-Up">
-            <TexCoords left="0.0" right="1.0" top="0.0" bottom="0.71875"/>
-        </NormalTexture>
-        <PushedTexture file="Interface\Buttons\UI-DialogBox-Button-Down">
-            <TexCoords left="0.0" right="1.0" top="0.0" bottom="0.71875"/>
-        </PushedTexture>
-        <DisabledTexture file="Interface\Buttons\UI-DialogBox-Button-Disabled">
-            <TexCoords left="0.0" right="1.0" top="0.0" bottom="0.71875"/>
-        </DisabledTexture>
-        <HighlightTexture file="Interface\Buttons\UI-DialogBox-Button-Highlight" alphaMode="ADD">
-            <TexCoords left="0.0" right="1.0" top="0.0" bottom="0.71875"/>
+        <HighlightTexture setAllPoints="true" alphaMode="ADD">
+            <Color r="1" g="0.82" b="0" a="0.15"/>
         </HighlightTexture>
         <NormalFont style="GameFontNormal"/>
         <DisabledFont style="GameFontDisable"/>
         <HighlightFont style="GameFontHighlight"/>
     </Button>
-    <Frame name="GroupinatorStaticPopupTemplate" toplevel="true" enableKeyboard="true" enableMouse="true" frameStrata="DIALOG" hidden="true" virtual="true">
+    <Frame name="GroupinatorStaticPopupTemplate" toplevel="true" enableKeyboard="true" enableMouse="true"
+           frameStrata="DIALOG" hidden="true" virtual="true" inherits="BackdropTemplate">
         <Size x="320" y="72"/>
         <Layers>
             <Layer level="ARTWORK">
@@ -45,11 +31,11 @@
                     <Anchors>
                         <Anchor point="TOP" x="0" y="-16"/>
                     </Anchors>
+                    <Color r="0.90" g="0.90" b="0.90"/>
                 </FontString>
             </Layer>
         </Layers>
         <Frames>
-            <Frame parentKey="Border" inherits="DialogBorderDarkTemplate"/>
             <Button name="$parentButton1" inherits="GroupinatorStaticPopupButtonTemplate" parentKey="Button1" id="1"/>
             <Button name="$parentButton2" inherits="GroupinatorStaticPopupButtonTemplate" parentKey="Button2" id="2"/>
             <Button name="$parentButton3" inherits="GroupinatorStaticPopupButtonTemplate" parentKey="Button3" id="3"/>
@@ -59,29 +45,6 @@
                 <Anchors>
                     <Anchor point="BOTTOM" x="0" y="45"/>
                 </Anchors>
-                <Layers>
-                    <Layer level="BACKGROUND">
-                        <Texture name="$parentLeft" file="Interface\ChatFrame\UI-ChatInputBorder-Left2">
-                            <Size x="32" y="32"/>
-                            <Anchors>
-                                <Anchor point="LEFT" x="-10" y="0"/>
-                            </Anchors>
-                        </Texture>
-                        <Texture name="$parentRight" file="Interface\ChatFrame\UI-ChatInputBorder-Right2">
-                            <Size x="32" y="32"/>
-                            <Anchors>
-                                <Anchor point="RIGHT" x="10" y="0"/>
-                            </Anchors>
-                        </Texture>
-                        <Texture name="$parentMid" file="Interface\ChatFrame\UI-ChatInputBorder-Mid2" horizTile="true">
-                            <Size x="0" y="32"/>
-                            <Anchors>
-                                <Anchor point="TOPLEFT" relativeTo="$parentLeft" relativePoint="TOPRIGHT" x="0" y="0"/>
-                                <Anchor point="TOPRIGHT" relativeTo="$parentRight" relativePoint="TOPLEFT" x="0" y="0"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
                 <FontString inherits="ChatFontNormal"/>
             </EditBox>
         </Frames>

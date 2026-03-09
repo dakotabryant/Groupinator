@@ -5,10 +5,23 @@
     <Frame name="GroupinatorBasicTemplate" virtual="true">
         <Size x="250" y="23"/>
         <Frames>
-            <CheckButton parentKey="Act" inherits="UICheckButtonTemplate" checked="false">
+            <CheckButton parentKey="Act" checked="false">
+                <Size x="20" y="20"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" y="4"/>
+                    <Anchor point="TOPLEFT" x="5" y="-1"/>
                 </Anchors>
+                <NormalTexture atlas="checkbox-minimal" useAtlasSize="false">
+                    <Size x="20" y="20"/>
+                </NormalTexture>
+                <PushedTexture atlas="checkbox-minimal" useAtlasSize="false">
+                    <Size x="20" y="20"/>
+                </PushedTexture>
+                <CheckedTexture atlas="checkmark-minimal" useAtlasSize="false">
+                    <Size x="20" y="20"/>
+                </CheckedTexture>
+                <DisabledCheckedTexture atlas="checkmark-minimal-disabled" useAtlasSize="false">
+                    <Size x="20" y="20"/>
+                </DisabledCheckedTexture>
             </CheckButton>
         </Frames>
         <Layers>
@@ -16,8 +29,9 @@
                 <FontString parentKey="Title" inherits="GameFontHighlight" wordwrap="false" justifyH="LEFT">
                     <Size y="23"/>
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="35" y="0"/>
+                        <Anchor point="TOPLEFT" x="30" y="0"/>
                     </Anchors>
+                    <Color r="0.90" g="0.90" b="0.90"/>
                 </FontString>
             </Layer>
         </Layers>
@@ -59,6 +73,7 @@
                     <Anchors>
                         <Anchor point="TOPLEFT" x="-75" y="0" relativePoint="TOPRIGHT"/>
                     </Anchors>
+                    <Color r="0.60" g="0.60" b="0.65"/>
                 </FontString>
             </Layer>
         </Layers>
@@ -104,7 +119,7 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture name="$parentBg" parentKey="Bg" setAllPoints="true">
-                    <Color r="0.08" g="0.08" b="0.08" a="0.65"/>
+                    <Color r="0.05" g="0.05" b="0.08" a="0.80"/>
                 </Texture>
             </Layer>
             <Layer level="OVERLAY">
@@ -112,7 +127,7 @@
             </Layer>
         </Layers>
         <HighlightTexture setAllPoints="true" alphaMode="ADD">
-            <Color r="1" g="0.82" b="0" a="0.35"/>
+            <Color r="1" g="0.82" b="0" a="0.25"/>
         </HighlightTexture>
         <Scripts>
             <OnEnter method="OnEnter"/>
@@ -133,6 +148,7 @@
                         <Anchor point="LEFT" x="10"/>
                         <Anchor point="RIGHT" x="-10"/>
                     </Anchors>
+                    <Color r="0.95" g="0.80" b="0.30"/>
                 </FontString>
             </Layer>
         </Layers>
@@ -152,7 +168,6 @@
                 </Anchors>
                 <KeyValues>
                     <KeyValue key="maxLetters" value="2000" type="number"/>
-                    <!--<KeyValue key="instructions" value="" type="global"/>-->
                     <KeyValue key="hideCharCount" value="true" type="boolean"/>
                 </KeyValues>
             </ScrollFrame>

@@ -129,6 +129,20 @@ C.COLOR_LOCKOUT_MATCH       = { R = 1.0, G = 1.0, B = 1.0 } -- white
 C.COLOR_FRESH               = { R = 0.3, G = 1.0, B = 0.5 } -- bright green
 C.COLOR_RECENT              = { R = 1.0, G = 0.9, B = 0.3 } -- yellow
 
+C.THEME_BG        = { R = 0.06, G = 0.06, B = 0.10, A = 0.92 }
+C.THEME_BORDER    = { R = 0.30, G = 0.30, B = 0.35, A = 0.80 }
+C.THEME_HEADER    = { R = 0.95, G = 0.80, B = 0.30 }
+C.THEME_HIGHLIGHT = { R = 1.00, G = 0.82, B = 0.00, A = 0.25 }
+C.THEME_TEXT      = { R = 0.90, G = 0.90, B = 0.90 }
+C.THEME_TEXT_DIM  = { R = 0.60, G = 0.60, B = 0.65 }
+
+C.THEME_BACKDROP = {
+    bgFile   = "Interface\\Buttons\\WHITE8x8",
+    edgeFile = "Interface\\Buttons\\WHITE8x8",
+    edgeSize = 1,
+    insets   = { left = 1, right = 1, top = 1, bottom = 1 },
+}
+
 C.FRESHNESS_THRESHOLD_FRESH  = 2  -- minutes
 C.FRESHNESS_THRESHOLD_RECENT = 10 -- minutes
 

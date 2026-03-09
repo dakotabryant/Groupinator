@@ -103,6 +103,12 @@ end
 function GRP.UI_SetupDropDown(panel, field, name, title, entryTable, size)
     if not size then size = 290 end
     field:SetWidth(size)
+    local dd = field.DropDown
+    if dd.SetBackdrop then
+        dd:SetBackdrop(C.THEME_BACKDROP)
+        dd:SetBackdropColor(0.10, 0.10, 0.13, 0.90)
+        dd:SetBackdropBorderColor(C.THEME_BORDER.R, C.THEME_BORDER.G, C.THEME_BORDER.B, C.THEME_BORDER.A)
+    end
     field.DropDown.SetKey = function(self, key)
         for _, v in ipairs(entryTable) do
             if v.key == key then

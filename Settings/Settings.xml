@@ -9,7 +9,18 @@
                     <Anchors>
                         <Anchor point="TOPLEFT" x="7" y="-16"/>
                     </Anchors>
+                    <Color r="0.95" g="0.80" b="0.30"/>
                 </FontString>
+            </Layer>
+            <Layer level="BACKGROUND">
+                <Texture>
+                    <Size y="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="5" y="2"/>
+                        <Anchor point="BOTTOMRIGHT" x="-5" y="2"/>
+                    </Anchors>
+                    <Color r="0.30" g="0.30" b="0.35" a="0.40"/>
+                </Texture>
             </Layer>
         </Layers>
     </Frame>
@@ -27,6 +38,7 @@
                         <Anchor point="LEFT" x="40"/>
                         <Anchor point="CENTER" x="-85"/>
                     </Anchors>
+                    <Color r="0.90" g="0.90" b="0.90"/>
                 </FontString>
             </Layer>
         </Layers>
@@ -81,11 +93,15 @@
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="7" y="-22"/>
                             </Anchors>
+                            <Color r="0.95" g="0.80" b="0.30"/>
                         </FontString>
-                        <Texture atlas="Options_HorizontalDivider" useAtlasSize="true">
+                        <Texture>
+                            <Size y="1"/>
                             <Anchors>
-                                <Anchor point="TOP" y="-50"/>
+                                <Anchor point="TOPLEFT" x="5" y="-50"/>
+                                <Anchor point="TOPRIGHT" x="-5" y="-50"/>
                             </Anchors>
+                            <Color r="0.30" g="0.30" b="0.35" a="0.60"/>
                         </Texture>
                     </Layer>
                 </Layers>

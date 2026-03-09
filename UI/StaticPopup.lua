@@ -71,6 +71,9 @@ function PGFStaticPopup:OnLoad()
     self.text_arg1 = ""
     self.text_arg2 = ""
     self:SetPoint("TOP", 0, -135)
+    self:SetBackdrop(C.THEME_BACKDROP)
+    self:SetBackdropColor(C.THEME_BG.R, C.THEME_BG.G, C.THEME_BG.B, 0.96)
+    self:SetBackdropBorderColor(C.THEME_BORDER.R, C.THEME_BORDER.G, C.THEME_BORDER.B, C.THEME_BORDER.A)
 end
 
 function PGFStaticPopup:GetButtons()

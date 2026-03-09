@@ -110,7 +110,9 @@ function GRP.PopupMenu_Initialize(name)
     elseif menu.anchorPoint then
         popupFrame:SetPoint(menu.anchorPoint, menu.relativeTo, menu.relativePoint, menu.offsetX, menu.offsetY)
     end
-    popupFrame:SetBackdropBorderColor(0.5, 0.5, 0.5)
+    popupFrame:SetBackdrop(C.THEME_BACKDROP)
+    popupFrame:SetBackdropColor(C.THEME_BG.R, C.THEME_BG.G, C.THEME_BG.B, 0.96)
+    popupFrame:SetBackdropBorderColor(C.THEME_BORDER.R, C.THEME_BORDER.G, C.THEME_BORDER.B, C.THEME_BORDER.A)
 end
 
 function GRP.PopupMenu_Show(name)
