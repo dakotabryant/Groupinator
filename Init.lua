@@ -149,9 +149,10 @@ C.FRESHNESS_THRESHOLD_RECENT = 10 -- minutes
 C.ARMOR_TO_TIER = { cloth = "dreadful", leather = "mystic", mail = "venerated", plate = "zenith" }
 
 C.PLAYSTYLE_KEYWORD = {
-    [1] = "standard",
-    [2] = "casual",
-    [3] = "hardcore",
+    [1] = "learning",
+    [2] = "relaxed",
+    [3] = "competitive",
+    [4] = "carry",
 }
 
 C.FONTSIZE_TEXTBOX = 12

@@ -266,14 +266,14 @@ function GRP.DoFilterSearchResults(results)
             local playstyleEnum = Enum.LFGEntryPlaystyle or Enum.LFGEntryGeneralPlaystyle or {}
             local playstyleValue = searchResultInfo.playstyle or searchResultInfo.generalPlaystyle or 0
             env.playstyle   = playstyleValue
-            env.standard    = playstyleValue == (playstyleEnum.Standard or playstyleEnum.Learning or 1)
-            env.casual      = playstyleValue == (playstyleEnum.Casual or playstyleEnum.FunRelaxed or 2)
-            env.hardcore    = playstyleValue == (playstyleEnum.Hardcore or playstyleEnum.FunSerious or 3)
+            env.learning    = playstyleValue == (playstyleEnum.Learning or playstyleEnum.Standard or 1)
+            env.relaxed     = playstyleValue == (playstyleEnum.FunRelaxed or playstyleEnum.Casual or 2)
+            env.competitive = playstyleValue == (playstyleEnum.FunSerious or playstyleEnum.Hardcore or 3)
+            env.carry       = playstyleValue == (playstyleEnum.CarryOffered or 4)
             -- backward compatibility aliases
-            env.learning    = env.standard
-            env.relaxed     = env.casual
-            env.competitive = env.hardcore
-            env.carry       = false
+            env.standard    = env.learning
+            env.casual      = env.relaxed
+            env.hardcore    = env.competitive
             env.mprating = searchResultInfo.leaderOverallDungeonScore or 0
             env.mpmaprating = 0
             env.mpmapname   = ""

@@ -43,7 +43,7 @@ function M.create_namespace()
         [C.ARENA5V5]   = "arena5v5",
     }
 
-    C.PLAYSTYLE_KEYWORD = { [1] = "standard", [2] = "casual", [3] = "hardcore" }
+    C.PLAYSTYLE_KEYWORD = { [1] = "learning", [2] = "relaxed", [3] = "competitive", [4] = "carry" }
 
     C.ROLE_PREFIX = { ["DAMAGER"] = "dps", ["HEALER"] = "heal", ["TANK"] = "tank" }
     C.ROLE_SUFFIX = { ["DAMAGER"] = "dps", ["HEALER"] = "heals", ["TANK"] = "tanks" }

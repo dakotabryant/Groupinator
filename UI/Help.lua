@@ -69,7 +69,7 @@ function GRP.Dialog_InfoButton_OnEnter(self, motion)
         GRP.GameTooltip_AddDoubleWhite("hov/cos/dht/nl/eoa/brh", L["dialog.tooltip.timewalking"])
         GRP.GameTooltip_AddDoubleWhite("arena2v2/arena3v3", L["dialog.tooltip.arena"])
         GameTooltip:AddLine(" ")
-        GRP.GameTooltip_AddDoubleWhite("standard/casual/hardcore", L["dialog.tooltip.playstyle"])
+        GRP.GameTooltip_AddDoubleWhite("learning/relaxed/competitive/carry", L["dialog.tooltip.playstyle"])
         GRP.GameTooltip_AddDoubleWhite("fresh", L["dialog.tooltip.fresh"])
         GRP.GameTooltip_AddDoubleWhite("recent", L["dialog.tooltip.recent"])
     end

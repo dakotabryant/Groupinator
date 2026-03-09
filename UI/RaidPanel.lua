@@ -29,9 +29,10 @@ local DIFFICULTY_TEXT = {
 }
 
 local PLAYSTYLE_TEXT = {
-    [1] = { key = 1, title = L["dialog.playstyle.standard"] or "Standard" },
-    [2] = { key = 2, title = L["dialog.playstyle.casual"] or "Casual" },
-    [3] = { key = 3, title = L["dialog.playstyle.hardcore"] or "Hardcore" },
+    [1] = { key = 1, title = L["dialog.playstyle.learning"] or "Learning" },
+    [2] = { key = 2, title = L["dialog.playstyle.relaxed"] or "Relaxed" },
+    [3] = { key = 3, title = L["dialog.playstyle.competitive"] or "Competitive" },
+    [4] = { key = 4, title = L["dialog.playstyle.carry"] or "Carry Offered" },
 }
 
 local RaidPanel = CreateFrame("Frame", "GroupinatorRaidPanel", GRP.Dialog, "GroupinatorRaidPanelTemplate")
