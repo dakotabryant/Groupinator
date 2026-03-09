@@ -1,0 +1,9 @@
+return {
+    default = {
+        lua = "luajit",
+        ROOT = { "spec/" },
+        pattern = "_spec",
+        output = "utfTerminal",
+        verbose = true,
+    },
+}
