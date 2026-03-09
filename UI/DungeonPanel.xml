@@ -8,7 +8,7 @@
         </Anchors>
         <Frames>
             <Frame parentKey="Group">
-                <Size x="400" y="250"/>
+                <Size x="400" y="275"/>
                 <Anchors>
                     <Anchor point="TOPLEFT"/>
                 </Anchors>
@@ -32,9 +32,14 @@
                             <Anchor point="LEFT" x="5"/>
                         </Anchors>
                     </Frame>
-                    <Frame parentKey="MPRating" inherits="GroupinatorMinMaxTemplate">
+                    <Frame parentKey="Playstyle" inherits="GroupinatorDropdownTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.Difficulty" relativePoint="BOTTOMLEFT"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame parentKey="MPRating" inherits="GroupinatorMinMaxTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeKey="$parent.Playstyle" relativePoint="BOTTOMLEFT"/>
                         </Anchors>
                     </Frame>
                     <Frame parentKey="Members" inherits="GroupinatorMinMaxTemplate">
