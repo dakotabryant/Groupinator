@@ -61,6 +61,10 @@ local CMID_MAP = {
 }
 setmetatable(CMID_MAP, { __index = function() return { order = 0, keyword = "true" } end })
 
+local MIDNIGHT_S1_CMIDS = { 560, 559, 558, 557, 402, 239, 161, 556 }
+local MIDNIGHT_S1_LOOKUP = {}
+for _, id in ipairs(MIDNIGHT_S1_CMIDS) do MIDNIGHT_S1_LOOKUP[id] = true end
+
 -- Note that there are currently one 8 checkboxes available in the xml file.
 -- If a season has more or less than 8 dungeons, the code has to be adapted.
 local NUM_DUNGEON_CHECKBOXES = 8
@@ -200,6 +204,18 @@ function DungeonPanel:InitChallengeModes()
     end
 
     self.cmIDs = C_ChallengeMode.GetMapTable()
+
+    -- Pre-season fallback: if the API still returns last season's dungeons
+    -- (none of them are in the Midnight S1 pool), show the Midnight list instead.
+    local hasMidnight = false
+    for _, id in ipairs(self.cmIDs) do
+        if MIDNIGHT_S1_LOOKUP[id] then hasMidnight = true break end
+    end
+    if not hasMidnight then
+        GRP.Logger:Debug("Pre-season detected, using Midnight S1 dungeon list")
+        self.cmIDs = { unpack(MIDNIGHT_S1_CMIDS) }
+    end
+
     table.sort(self.cmIDs, function(a, b) -- sort by order asc, id asc
         if CMID_MAP[a].order ~= CMID_MAP[b].order then
             return CMID_MAP[a].order < CMID_MAP[b].order
